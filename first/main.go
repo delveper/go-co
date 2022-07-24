@@ -1,39 +1,24 @@
 package main
 
-import (
-	"fmt"
-	"os"
-	"sync"
-)
-
+// Конкурентно порахувати суму кожного слайсу int, та роздрукувати результат.
+// Потрібно використовувати WaitGroup.
+// Приклад:
+// [ [ 4, 6 ], [ 7, 9 ] ]
+// Результат друку:
+// Порядок друку не важливий.
+// “slice 1: 10”
+// “slice 2: 16”
 func main() {
-	n := [][]int{
-		{2, 6, 9, 24},
-		{7, 3, 94, 3, 0},
-		{4, 2, 8, 35},
-	}
-	var wg sync.WaitGroup
-	wg.Add(len(n))
+	// Розкоментуй мене)
+	// n := [][]int{
+	// 	{2, 6, 9, 24},
+	// 	{7, 3, 94, 3, 0},
+	// 	{4, 2, 8, 35},
+	// }
 
-	for i, slice := range n {
-		go run(i, slice, &wg)
-	}
-	wg.Wait()
+	// Ваша реалізація
 }
 
-func run(i int, slice []int, wg *sync.WaitGroup) {
-	fmt.Printf("slice %d: ", i)
-	sum(slice)
-	wg.Done()
-}
-
-func sum(s []int) {
-	var E int
-	for _, k := range s {
-		E += k
-	}
-	str := fmt.Sprintln(E)
-	if _, err := fmt.Fprintf(os.Stdout, str); err != nil {
-		fmt.Printf("error printing sum of slice: %v\n", err)
-	}
+func sum([]int) {
+	// Ваша реалізація
 }
