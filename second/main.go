@@ -10,26 +10,21 @@ func main() {
 		{7, 3, 94, 3, 0},
 		{4, 2, 8, 35},
 	}
-	slices := make(chan []int)
 	var result int
-
-	go split(slices, n)
-	for s := range slices {
-		result += sum(s)
-	}
-	fmt.Printf("result: %v\n", result)
-}
-func split(slices chan []int, n [][]int) {
 	for _, s := range n {
-		slices <- s
+		r := make(chan int)
+		go sum(s, r)
+		result += <-r
 	}
-	close(slices)
+
+	fmt.Printf("result: %v\n", result)
+
 }
 
-func sum(s []int) int {
+func sum(s []int, gochan chan int) {
 	var E int
 	for _, v := range s {
 		E += v
 	}
-	return E
+	gochan <- E
 }
